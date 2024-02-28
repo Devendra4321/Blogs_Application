@@ -1,0 +1,46 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="row mt-5">
+  <div class="col-10 offset-1">
+    <form
+      method="POST"
+      action="/blogs/<%=updateBlog._id%>?_method=PUT"
+      novalidate
+      class="needs-validation"
+    >
+      <div class="mb-3">
+        <input
+          class="form-control"
+          type="text"
+          name="title"
+          value="<%= updateBlog.title %>"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <input
+          class="form-control"
+          type="text"
+          name="image"
+          value="<%= updateBlog.image %>"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <textarea
+          class="form-control"
+          type="text"
+          name="description"
+          rows="15"
+          required
+        >
+<%= updateBlog.description %></textarea
+        >
+      </div>
+
+      <button class="btn btn-dark">Update blog</button>
+    </form>
+  </div>
+</div>

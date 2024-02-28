@@ -1,0 +1,39 @@
+<% layout("./layouts/boilerplate")-%>
+<style></style>
+<!--  -->
+
+<% for(blog of blogs){ %>
+<div class="row mt-3">
+  <div class="col-10 offset-1">
+    <div class="card mb-3">
+      <a class="card-a" href="/blogs/<%=blog._id%>">
+        <div class="row">
+          <div class="col-md-5">
+            <img
+              class="card-image"
+              src="<%= blog.image %>"
+              class="img-fluid rounded-start"
+              alt="..."
+            />
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <h2 class="card-title"><%=blog.title%></h2>
+              <p class="card-text">
+                <span><b>Author</b></span>
+              </p>
+              <p class="card-text"><%= blog.description %></p>
+
+              <p class="card-text">
+                <small class="text-body-secondary"
+                  >Created on <%= blog.created_date %></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<% } %>
