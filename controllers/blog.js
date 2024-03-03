@@ -2,7 +2,7 @@ const Blog = require("../models/blog.js");
 
 //index
 module.exports.renderIndexForm = async (req, res) => {
-  let blogs = await Blog.find({});
+  let blogs = await Blog.find({}).populate("owner");
   res.render("./blogs/index.ejs", { blogs });
 };
 
@@ -16,6 +16,7 @@ module.exports.createBlogs = async (req, res) => {
   let { title, image, description } = req.body;
   let created_date = new Date().toLocaleDateString();
   let newBlog = new Blog({ title, created_date, image, description });
+  newBlog.owner = req.user._id;
   await newBlog.save();
   req.flash("success", "New blog added!");
   res.redirect("/blogs");
@@ -24,7 +25,7 @@ module.exports.createBlogs = async (req, res) => {
 //show
 module.exports.showBlog = async (req, res) => {
   let { id } = req.params;
-  let showBlog = await Blog.findById(id);
+  let showBlog = await Blog.findById(id).populate("owner");
   if (!showBlog) {
     req.flash("error", "Blog you requested for does not exist!");
     res.redirect("/blogs");

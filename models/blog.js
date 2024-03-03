@@ -6,9 +6,6 @@ let blogSchema = new Schema({
     type: String,
     required: true,
   },
-  author: {
-    type: String,
-  },
   created_date: {
     type: String,
   },
@@ -23,6 +20,10 @@ let blogSchema = new Schema({
   updated: {
     date: String,
     time: String,
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 

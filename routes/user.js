@@ -8,12 +8,13 @@ const {
 } = require("../controllers/user");
 const userRouter = express.Router();
 const passport = require("passport");
+const wrapAsync = require("../utils/wrapAsync");
 
 //signup get
 userRouter.get("/signup", renderSignupForm);
 
 //signup post
-userRouter.post("/signup", signup);
+userRouter.post("/signup", wrapAsync(signup));
 
 //login get
 userRouter.get("/login", renderLoginForm);

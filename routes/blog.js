@@ -8,27 +8,30 @@ const {
   showBlog,
   deleteBlog,
 } = require("../controllers/blog");
+const { isLoggedIn, isOwner } = require("../middelwares");
 const blogRouter = express.Router();
+const wrapAsync = require("../utils/wrapAsync.js");
+const Blog = require("../models/blog.js");
 
 //index route
-blogRouter.get("/", renderIndexForm);
+blogRouter.get("/", isLoggedIn, wrapAsync(renderIndexForm));
 
 //new get route
 blogRouter.get("/new", renderNewBlogForm);
 
 //new post route
-blogRouter.post("/", createBlogs);
+blogRouter.post("/", wrapAsync(createBlogs));
 
 //update get route
-blogRouter.get("/:id/edit", renderUpdateBlogForm);
+blogRouter.get("/:id/edit", isOwner, wrapAsync(renderUpdateBlogForm));
 
 //update post route
-blogRouter.put("/:id", updateBlog);
+blogRouter.put("/:id", wrapAsync(updateBlog));
 
 //show route
-blogRouter.get("/:id", showBlog);
+blogRouter.get("/:id", wrapAsync(showBlog));
 
 //delete route
-blogRouter.delete("/:id", deleteBlog);
+blogRouter.delete("/:id", isOwner, wrapAsync(deleteBlog));
 
 module.exports = blogRouter;

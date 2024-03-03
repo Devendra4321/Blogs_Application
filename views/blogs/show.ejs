@@ -6,10 +6,12 @@
       <div class="card-body">
         <h2 class="card-title"><%=showBlog.title%></h2>
         <p class="card-text"><%=showBlog.created_date%></p>
-        <p class="card-text">Author</p>
+        <p class="card-text"><%= showBlog.owner.username%></p>
+        <% if(currUser && showBlog.owner._id.equals(currUser._id)) { %>
         <a class="btn btn-dark" href="/blogs/<%= showBlog._id %>/edit"
           >Edit this blog</a
         >
+        <% } %>
       </div>
     </div>
 
@@ -29,9 +31,11 @@
           >
         </p>
       </div>
+      <% if(currUser && showBlog.owner._id.equals(currUser._id)) { %>
       <form action="/blogs/<%= showBlog._id %>?_method=DELETE" method="POST">
         <button class="btn btn-dark">Delete this blog</button>
       </form>
+      <% } %>
     </div>
   </div>
 </div>
